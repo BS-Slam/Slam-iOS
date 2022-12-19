@@ -12,9 +12,22 @@ final class IntroVM:BaseVM{
     
     func transVC(input: Input){
         input.signInButtonTap.subscribe(
-        onNext: <#T##((Void) -> Void)?##((Void) -> Void)?##(Void) -> Void#>
-        )
+        onNext: pushSignInVC
+        ) .disposed(by: disposeBag)
+        
+        /*input.signUpButtonTap.subscribe(
+        onNext: pushSignUpVC
+        ) .disposed(by: disposeBag)*/
     }
+    
+    private func pushSignInVC() {
+        coordinator.pushSignInVC()
+    }
+    
+    /*private func pushSignUpVC() {
+        coordinator.pushSignUpVC()
+    }*/
+
 }
 
 extension IntroVM: ViewModelType{

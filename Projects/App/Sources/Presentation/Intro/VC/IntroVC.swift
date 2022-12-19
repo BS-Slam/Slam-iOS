@@ -36,12 +36,18 @@ final class IntroVC: BaseVC<IntroVM>{
         $0.titleLabel?.font = UIFont(name: "Helvetica", size: 13)
     }
     
+    private func bindViewModel(){
+        let input = IntroVM.Input(signInButtonTap: signInButton.rx.tap.asObservable(), signUpButtonTap: signUpButton.rx.tap.asObservable())
+        viewModel.transVC(input: input)
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        bindViewModel()
         self.navigationItem.backButton(title: "취소")
     }
     

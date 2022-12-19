@@ -23,4 +23,10 @@ class IntroCoordinator: Coordinator{
         let signInVC = SignInVC(signInVM)
         navigationController.setViewControllers([signInVC], animated: true)
     }
+    
+    /*func pushSignUpVC(){
+        let signUpVM = SignUpVM(coordinator: self)
+        let signUpVC = SignUpVC(signUpVM)
+        navigationController.setViewControllers([signUpVC], animated: true)
+    }*/
 }
