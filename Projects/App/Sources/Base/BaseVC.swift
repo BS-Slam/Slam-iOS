@@ -23,7 +23,7 @@ class BaseVC<T>: UIViewController {
         super.viewDidLoad()
         addView()
         setLayout()
-        view.backgroundColor = .white
+        view.backgroundColor = SlamAsset.Colors.slamBackgroundColor.color
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
