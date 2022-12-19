@@ -19,6 +19,7 @@
 public enum SlamAsset {
   public enum Colors {
     public static let slamBackgroundColor = SlamColors(name: "Slam_BackgroundColor")
+    public static let slamMainColor = SlamColors(name: "Slam_MainColor")
   }
   public enum Images {
     public static let slamLogo = SlamImages(name: "Slam_Logo")
