@@ -24,7 +24,7 @@ final class IntroVC: BaseVC<IntroVM>{
         $0.titleLabel?.font = UIFont(name: "Helvetica-Bold", size: 20)
     }
     
-    private let SignUpLabel = UILabel().then{
+    private let signUpLabel = UILabel().then{
         $0.text = "SLAM이 처음이신가요?"
         $0.font = UIFont(name: "Helvetica", size: 13)
         $0.textColor = UIColor.white
@@ -53,7 +53,7 @@ final class IntroVC: BaseVC<IntroVM>{
     
     
     override func addView() {
-        [logoImageView,signInButton,SignUpLabel,signUpButton,mainLabel].forEach {
+        [logoImageView,signInButton,signUpLabel,signUpButton,mainLabel].forEach {
             view.addSubview($0)
         }
     }
@@ -71,15 +71,15 @@ final class IntroVC: BaseVC<IntroVM>{
             make.width.equalToSuperview().inset(20)
             make.height.equalTo(50)
         }
-        SignUpLabel.snp.makeConstraints { make in
+        signUpLabel.snp.makeConstraints { make in
             make.left.equalTo(109)
             make.top.equalTo(signInButton.snp.bottom).offset(16)
             make.width.equalTo(130)
             make.height.equalTo(15)
         }
         signUpButton.snp.makeConstraints { make in
-            make.centerY.equalTo(SignUpLabel)
-            make.left.equalTo(SignUpLabel.snp.right).offset(5)
+            make.centerY.equalTo(signUpLabel)
+            make.left.equalTo(signUpLabel.snp.right).offset(5)
             make.width.equalTo(50)
             make.height.equalTo(15)
         }
