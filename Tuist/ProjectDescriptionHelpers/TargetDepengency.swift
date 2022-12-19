@@ -10,6 +10,7 @@ public extension TargetDependency.SPM{
     static let Tabman = TargetDependency.package(product: "Tabman")
     static let Alamofire = TargetDependency.package(product: "Alamofire")
     static let Kingfisher = TargetDependency.package(product: "Kingfisher")
+    static let RxSwift = TargetDependency.package(product: "RxSwift")
 }
 
 public extension Package {
@@ -31,4 +32,7 @@ public extension Package {
     static let Kingfisher = Package.remote(
         url: "https://github.com/onevcat/Kingfisher",
         requirement: .upToNextMajor(from: "7.4.1"))
+    static let RxSwift = Package.remote(
+        url: "https://github.com/ReactiveX/RxSwift",
+        requirement: .upToNextMajor(from: "6.5.0"))
 }
