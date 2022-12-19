@@ -13,7 +13,7 @@ let project = Project.excutable(
         .Tabman,
         .Alamofire,
         .Kingfisher,
-        .RxSwift
+        .RxSwift,
     ],
     product: .app,
     deploymentTarget: .iOS(targetVersion: "13.5", devices: [.iphone, .ipad]),
@@ -23,6 +23,7 @@ let project = Project.excutable(
         .SPM.Tabman,
         .SPM.Alamofire,
         .SPM.Kingfisher,
-        .SPM.RxSwift
+        .SPM.RxSwift,
+        .SPM.RxCococa
     ]
 )

@@ -11,6 +11,7 @@ public extension TargetDependency.SPM{
     static let Alamofire = TargetDependency.package(product: "Alamofire")
     static let Kingfisher = TargetDependency.package(product: "Kingfisher")
     static let RxSwift = TargetDependency.package(product: "RxSwift")
+    static let RxCococa = TargetDependency.package(product: "RxCocoa")
 }
 
 public extension Package {
