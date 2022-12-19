@@ -23,7 +23,6 @@ public enum SlamAsset {
   }
   public enum Images {
     public static let slamLogo = SlamImages(name: "Slam_Logo")
-    public static let slamText = SlamImages(name: "Slam_Text")
   }
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
