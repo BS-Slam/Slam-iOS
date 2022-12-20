@@ -4,9 +4,9 @@ import RxSwift
 import RxCocoa
 
 final class IntroVM:BaseVM{
-    var coordinator: IntroCoordinator
+    var coordinator: MainCoordinator
     
-    init(coordinator: IntroCoordinator){
+    init(coordinator: MainCoordinator){
         self.coordinator = coordinator
     }
     
@@ -15,18 +15,18 @@ final class IntroVM:BaseVM{
         onNext: pushSignInVC
         ) .disposed(by: disposeBag)
         
-        /*input.signUpButtonTap.subscribe(
+        input.signUpButtonTap.subscribe(
         onNext: pushSignUpVC
-        ) .disposed(by: disposeBag)*/
+        ) .disposed(by: disposeBag)
     }
     
     private func pushSignInVC() {
         coordinator.pushSignInVC()
     }
     
-    /*private func pushSignUpVC() {
+    private func pushSignUpVC() {
         coordinator.pushSignUpVC()
-    }*/
+    }
 
 }
 

@@ -1,7 +1,7 @@
 
 import UIKit
 
-class IntroCoordinator: Coordinator{
+class MainCoordinator: Coordinator{
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
     let window: UIWindow
@@ -24,9 +24,9 @@ class IntroCoordinator: Coordinator{
         navigationController.setViewControllers([signInVC], animated: true)
     }
     
-    /*func pushSignUpVC(){
+    func pushSignUpVC(){
         let signUpVM = SignUpVM(coordinator: self)
         let signUpVC = SignUpVC(signUpVM)
         navigationController.setViewControllers([signUpVC], animated: true)
-    }*/
+    }
 }

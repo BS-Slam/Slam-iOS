@@ -52,12 +52,18 @@ final class SignInVC: BaseVC<SignInVM>{
         $0.titleLabel?.font = UIFont(name: "Helvetica", size: 13)
     }
     
+    private func bindViewModel(){
+        let input = SignInVM.Input(signUpButtonTap: signUpButton.rx.tap.asObservable())
+        viewModel.transVC(input: input)
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        bindViewModel()
     }
     
     override func addView() {
