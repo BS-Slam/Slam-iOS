@@ -29,4 +29,9 @@ class MainCoordinator: Coordinator{
         let signUpVC = SignUpVC(signUpVM)
         navigationController.setViewControllers([signUpVC], animated: true)
     }
+    
+    func pushTabBarVC(){
+        let vc = TabBarVC()
+        navigationController.setViewControllers([vc], animated: true)
+    }
 }
