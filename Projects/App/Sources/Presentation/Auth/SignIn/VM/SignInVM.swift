@@ -15,21 +15,25 @@ final class SignInVM: BaseVM{
         input.signUpButtonTap.subscribe(
         onNext: pushSignUpVC
         ) .disposed(by: disposeBag)
+        
+        input.signInButtonTap.subscribe(
+        onNext: pushTabBarVC
+        ) .disposed(by: disposeBag)
     }
     
     private func pushSignUpVC(){
         coordinator.pushSignUpVC()
     }
     
-    /*private func pushMainVC(){
-        
-    }*/
+    private func pushTabBarVC(){
+        coordinator.pushTabBarVC()
+    }
 }
 
 extension SignInVM: ViewModelType{
 
     struct Input {
-        //let signInButtonTap: Observable<Void>
+        let signInButtonTap: Observable<Void>
         let signUpButtonTap: Observable<Void>
     }
 

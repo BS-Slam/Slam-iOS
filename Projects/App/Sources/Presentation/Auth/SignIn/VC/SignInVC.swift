@@ -53,7 +53,7 @@ final class SignInVC: BaseVC<SignInVM>{
     }
     
     private func bindViewModel(){
-        let input = SignInVM.Input(signUpButtonTap: signUpButton.rx.tap.asObservable())
+        let input = SignInVM.Input(signInButtonTap: signInButton.rx.tap.asObservable(), signUpButtonTap: signUpButton.rx.tap.asObservable())
         viewModel.transVC(input: input)
     }
     
