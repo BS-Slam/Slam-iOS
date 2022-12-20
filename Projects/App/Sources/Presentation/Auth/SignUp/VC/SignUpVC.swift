@@ -124,7 +124,12 @@ final class SignUpVC: BaseVC<SignUpVM>{
         $0.setTitle("가입", for: .normal)
         $0.setTitleColor(UIColor.black, for: .normal)
         $0.titleLabel?.font = UIFont(name: "Helvetica-Bold", size: 20)
-        $0.isEnabled = true
+        $0.isEnabled = false
+    }
+    
+    private func bindViewModel(){
+        let input = SignUpVM.Input(signUpButtonTap: signUpButton.rx.tap.asObservable())
+        viewModel.transVC(input: input)
     }
     
     override func viewDidLayoutSubviews() {
@@ -133,6 +138,7 @@ final class SignUpVC: BaseVC<SignUpVM>{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        bindViewModel()
     }
     
     override func addView() {
@@ -270,6 +276,6 @@ final class SignUpVC: BaseVC<SignUpVM>{
             make.left.equalTo(40)
         }
         signUpButton.backgroundColor = SlamAsset.Colors.slamMainColor.color
-        signUpButton.isEnabled = false
+        signUpButton.isEnabled = true
     }
 }

@@ -9,6 +9,16 @@ final class SignUpVM: BaseVM{
     init(coordinator: MainCoordinator){
         self.coordinator = coordinator
     }
+    
+    func transVC(input: Input){
+        input.signUpButtonTap.subscribe(
+        onNext: pushSignInVC
+        ) .disposed(by: disposeBag)
+    }
+    
+    private func pushSignInVC(){
+        coordinator.pushSignInVC()
+    }
 }
 
 extension SignUpVM: ViewModelType{
