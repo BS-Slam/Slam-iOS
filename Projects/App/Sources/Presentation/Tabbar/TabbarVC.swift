@@ -10,23 +10,39 @@ final class TabBarVC: TabmanViewController{
     
     private let homeVC = HomeVC(.init(coordinator: .init(navigationController: .init(), window: .init())))
     private let homeVC2 = HomeVC(.init(coordinator: .init(navigationController: .init(), window: .init())))
+    private let homeVC3 = HomeVC(.init(coordinator: .init(navigationController: .init(), window: .init())))
     
+    
+    private let tempView = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.addSubview(tempView)
+        tempView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalToSuperview()
+            make.width.equalToSuperview()
+            make.height.equalTo(110)
+        }
+        
         viewControllers.append(homeVC)
         viewControllers.append(homeVC2)
+        viewControllers.append(homeVC3)
 
         let bar = TMBar.TabBar().then{
-            $0.backgroundView.style = .blur(style: .light)
+            $0.backgroundView.style = .blur(style: .dark)
             $0.layout.transitionStyle = .snap
+            $0.layout.alignment = .centerDistributed
             $0.buttons.customize { (button) in
                 button.selectedTintColor = .white
                 button.tintColor = .gray
+                button.font = UIFont(name: "Helvetica-Bold", size: 15)
             }
+            $0.layout.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 21, right: 0)
+            $0.indicator.tintColor = .red
         }
-        addBar(bar, dataSource: self, at: .bottom)
+        addBar(bar, dataSource: self, at: .custom(view: tempView, layout: nil))
         setUp()
     }
     
@@ -55,24 +71,21 @@ extension TabBarVC: PageboyViewControllerDataSource, TMBarDataSource {
 
     func barItem(for bar: TMBar, at index: Int) -> TMBarItemable {
         
-        let calendarImage = TMBarItem(title: "")
-        calendarImage.image = UIImage(systemName: "calendar")
+        let feed = TMBarItem(title: "피드")
         
-        let schoolMealImage = TMBarItem(title: "")
-        schoolMealImage.image = UIImage(systemName: "fork")
+        let home = TMBarItem(title: "홈")
         
-        let scheduleImage = TMBarItem(title: "")
-        scheduleImage.image = UIImage(systemName: "list.bullet.rectangle.portrait")
+        let chat = TMBarItem(title: "채팅방")
         
         
         // MARK: - return tabBar
         switch index {
                 case 0:
-                    return calendarImage
+                    return feed
                 case 1:
-                    return schoolMealImage
+                    return home
                 case 2:
-                    return scheduleImage
+                    return chat
         default:
             return TMBarItem(title: "")
         }
