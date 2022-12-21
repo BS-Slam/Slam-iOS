@@ -61,16 +61,17 @@ final class HomeVC: BaseVC<HomeVM>{
     override func setLayout() {
         
         scrollView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.edges.equalToSuperview().inset(1)
         }
         
         contentView.snp.makeConstraints { make in
-            make.width.equalToSuperview()
-            make.centerX.top.bottom.equalToSuperview()
+            make.edges.equalTo(scrollView.contentLayoutGuide)
+            make.height.equalTo(1000)
+            make.width.equalTo(scrollView.snp.width)
         }
         
         logoImageView.snp.makeConstraints { make in
-            make.top.equalTo(116)
+            make.top.equalTo(35)
             make.width.equalTo(65)
             make.height.equalTo(25)
             make.left.equalTo(20)
@@ -88,7 +89,7 @@ final class HomeVC: BaseVC<HomeVM>{
             make.height.equalTo(35)
         }
         bestImageView.snp.makeConstraints { make in
-            make.top.equalTo(110)
+            make.top.equalTo(35)
             make.width.equalTo(90)
             make.height.equalTo(127)
             make.right.equalTo(-10)
