@@ -24,6 +24,8 @@ public enum SlamAsset {
     public static let slamTextfieldColor = SlamColors(name: "Slam_TextfieldColor")
   }
   public enum Images {
+    public static let slamBest = SlamImages(name: "Slam_Best")
+    public static let slamExample = SlamImages(name: "Slam_Example")
     public static let slamLogo = SlamImages(name: "Slam_Logo")
     public static let slamNavLogo = SlamImages(name: "Slam_NavLogo")
   }
