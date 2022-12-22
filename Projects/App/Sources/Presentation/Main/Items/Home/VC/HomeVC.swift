@@ -8,6 +8,27 @@ import Tabman
 
 final class HomeVC: BaseVC<HomeVM>{
     
+    private var collectionView: UICollectionView!
+    private var layout = UICollectionViewFlowLayout().then{
+        $0.scrollDirection = .horizontal
+    }
+    
+    private func setUpCollectionView(){
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView?.backgroundColor = SlamAsset.Colors.slamBackgroundColor.color
+        collectionView?.delegate = self
+        collectionView?.dataSource = self
+        collectionView?.register(ChallengersCell.self, forCellWithReuseIdentifier: "cell")
+        contentView.addSubview(collectionView)
+        collectionView.snp.makeConstraints { make in
+            make.top.equalTo(bestChallengersLabel.snp.bottom)
+            make.left.equalTo(20)
+            make.right.equalToSuperview()
+            make.bottom.equalTo(-40)
+        }
+        self.collectionView?.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
     private let scrollView = UIScrollView()
     private let contentView = UIView()
     
@@ -41,12 +62,21 @@ final class HomeVC: BaseVC<HomeVM>{
     
     private let mainImageView = UIImageView(image: UIImage(named: "Slam_Example"))
     
+    private let takePicButton = UIButton().then{
+        $0.setTitle("가장 웃긴 사진을 찍으세요", for: .normal)
+        $0.setTitleColor(UIColor.systemGray3, for: .normal)
+        $0.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        $0.backgroundColor = UIColor(red: 0.145, green: 0.145, blue: 0.145, alpha: 0.5)
+        $0.layer.cornerRadius = 18
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpCollectionView()
     }
     
     override func addView() {
@@ -56,6 +86,7 @@ final class HomeVC: BaseVC<HomeVM>{
         [logoImageView,localStatusLabel,bestChallengerLabel,bestImageView,worldStatusLabel,mainImageView,bestChallengersLabel].forEach {
             contentView.addSubview($0)
         }
+        mainImageView.addSubview(takePicButton)
     }
     
     override func setLayout() {
@@ -112,5 +143,33 @@ final class HomeVC: BaseVC<HomeVM>{
             make.width.equalTo(175)
             make.height.equalTo(35)
         }
+        takePicButton.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(10)
+            make.width.equalTo(325)
+            make.height.equalTo(60)
+        }
+    }
+}
+
+extension HomeVC : UICollectionViewDelegate {
+     
+}
+ 
+extension HomeVC : UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 150, height: 200)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 3
+    }
+     
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+         
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+        
+        return cell
     }
 }
