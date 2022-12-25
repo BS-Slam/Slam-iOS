@@ -26,6 +26,7 @@ public enum SlamAsset {
   public enum Images {
     public static let slamBest = SlamImages(name: "Slam_Best")
     public static let slamExample = SlamImages(name: "Slam_Example")
+    public static let slamFeedExample = SlamImages(name: "Slam_FeedExample")
     public static let slamLogo = SlamImages(name: "Slam_Logo")
     public static let slamNavLogo = SlamImages(name: "Slam_NavLogo")
   }

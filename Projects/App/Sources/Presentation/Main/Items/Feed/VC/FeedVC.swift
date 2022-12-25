@@ -8,7 +8,7 @@ import Tabman
 
 final class FeedVC: BaseVC<FeedVM>{
     
-    
+    private let tableView = UITableView()
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -19,14 +19,16 @@ final class FeedVC: BaseVC<FeedVM>{
     }
     
     override func addView() {
-        
-        
-        [].forEach {
+        [tableView].forEach {
             view.addSubview($0)
         }
     }
     
     override func setLayout() {
-        
+        tableView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
 }
+ 
+

@@ -8,8 +8,8 @@ final class TabBarVC: TabmanViewController{
     
     private var viewControllers: Array<UIViewController> = []
     
+    private let feedVC = FeedVC(.init(coordinator: .init(navigationController: .init(), window: .init())))
     private let homeVC = HomeVC(.init(coordinator: .init(navigationController: .init(), window: .init())))
-    private let homeVC2 = HomeVC(.init(coordinator: .init(navigationController: .init(), window: .init())))
     private let homeVC3 = HomeVC(.init(coordinator: .init(navigationController: .init(), window: .init())))
     
     
@@ -26,8 +26,8 @@ final class TabBarVC: TabmanViewController{
             make.height.equalTo(110)
         }
         
+        viewControllers.append(feedVC)
         viewControllers.append(homeVC)
-        viewControllers.append(homeVC2)
         viewControllers.append(homeVC3)
 
         let bar = TMBar.TabBar().then{
