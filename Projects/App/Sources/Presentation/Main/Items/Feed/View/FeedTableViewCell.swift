@@ -17,11 +17,10 @@ final class FeedTableViewCell: BaseTableViewCell{
         collectionView?.backgroundColor = SlamAsset.Colors.slamBackgroundColor.color
         collectionView?.delegate = self
         collectionView?.dataSource = self
-        collectionView?.register(FeedCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView?.register(FeedCell.self, forCellWithReuseIdentifier: "CollectionCell")
         self.addSubview(collectionView)
         collectionView.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview().inset(150)
-            make.left.right.equalToSuperview()
+            make.edges.equalToSuperview()
         }
         self.collectionView?.translatesAutoresizingMaskIntoConstraints = false
     }
@@ -69,18 +68,32 @@ final class FeedTableViewCell: BaseTableViewCell{
         $0.clipsToBounds = true
     }
     
-    private let profileIdLabel = UILabel()
+    private let profileIdLabel = UILabel().then{
+        $0.text = "not_ j_brother"
+        $0.font = UIFont.systemFont(ofSize: 11, weight: .bold)
+        $0.textColor = .white
+    }
     
-    override func setUp(){}
+    private let withoutLabel = UILabel().then{
+        $0.text = "외 5명"
+        $0.font = UIFont.systemFont(ofSize: 11, weight: .bold)
+        $0.textColor = .white
+    }
+    
+    
+    override func setUp() {
+        setUpCollectionView()
+    }
+    
     override func addView(){
-        self.bringSubviewToFront(heartButton)
-        [heartButton,likedLabel,talkButton,shareButton,profileButton].forEach {
+        //self.bringSubviewToFront(heartButton)
+        [heartButton,likedLabel,talkButton,shareButton,profileButton,pageControl,profileIdLabel,withoutLabel].forEach {
             self.addSubview($0)
         }
     }
     override func setLayout(){
         heartButton.snp.makeConstraints { make in
-            make.top.equalTo(710)
+            make.top.equalTo(pageControl.snp.bottom).offset(15)
             make.left.equalTo(23)
             make.width.equalTo(20)
             make.height.equalTo(15)
@@ -99,7 +112,7 @@ final class FeedTableViewCell: BaseTableViewCell{
         shareButton.snp.makeConstraints { make in
             make.centerY.equalTo(talkButton)
             make.left.equalTo(talkButton.snp.right).offset(13)
-            make.width.equalTo(18)
+            make.width.equalTo(20)
             make.height.equalTo(14)
         }
         profileButton.snp.makeConstraints { make in
@@ -107,6 +120,28 @@ final class FeedTableViewCell: BaseTableViewCell{
             make.left.equalTo(20)
             make.size.equalTo(40)
         }
+        pageControl.snp.makeConstraints { make in
+            make.top.equalTo(560)
+            make.centerX.equalToSuperview()
+        }
+        profileIdLabel.snp.makeConstraints { make in
+            make.left.equalTo(profileButton.snp.right).offset(8)
+            make.top.equalTo(profileButton)
+            make.height.equalTo(13)
+            make.width.equalTo(130)
+        }
+        
+        withoutLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(profileButton)
+            make.left.equalTo(profileButton.snp.right).offset(8)
+            make.height.equalTo(13)
+            make.width.equalTo(50)
+        }
+    }
+    
+    @objc func pageChanged(_ sender: UIPageControl) {
+        let indexPath = IndexPath(item: sender.currentPage, section: 0)
+        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
     }
 }
 
@@ -126,8 +161,26 @@ extension FeedTableViewCell : UICollectionViewDataSource,UICollectionViewDelegat
      
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
          
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCell", for: indexPath)
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt  section: Int) -> UIEdgeInsets {
+        
+        return UIEdgeInsets.init(top: 0, left: 0, bottom: 110, right: 0)
+        
+    }
+}
+
+extension FeedTableViewCell: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let width = scrollView.bounds.size.width
+        let x = scrollView.contentOffset.x + (width / 2.0)
+        
+        let newPage = Int(x / width)
+        if pageControl.currentPage != newPage {
+            pageControl.currentPage = newPage
+        }
     }
 }
