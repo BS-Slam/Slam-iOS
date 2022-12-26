@@ -27,6 +27,7 @@ let project = Project.excutable(
         .SPM.RxSwift,
         .SPM.RxCococa,
         .SPM.FirebaseAuth,
-        .SPM.FirebaseAnalytics
+        .SPM.FirebaseAnalytics,
+        .SPM.firebaseCrashlytics
     ]
 )
