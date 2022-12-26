@@ -12,6 +12,8 @@ public extension TargetDependency.SPM{
     static let Kingfisher = TargetDependency.package(product: "Kingfisher")
     static let RxSwift = TargetDependency.package(product: "RxSwift")
     static let RxCococa = TargetDependency.package(product: "RxCocoa")
+    static let FirebaseAuth = TargetDependency.package(product: "Firebase")
+    static let FirebaseAnalytics = TargetDependency.package(product: "Firebase")
 }
 
 public extension Package {
@@ -36,4 +38,7 @@ public extension Package {
     static let RxSwift = Package.remote(
         url: "https://github.com/ReactiveX/RxSwift",
         requirement: .upToNextMajor(from: "6.5.0"))
+    static let Firebase = Package.remote(
+        url: "https://github.com/firebase/firebase-ios-sdk.git",
+        requirement: .upToNextMajor(from: "8.0"))
 }

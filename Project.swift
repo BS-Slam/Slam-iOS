@@ -14,6 +14,7 @@ let project = Project.excutable(
         .Alamofire,
         .Kingfisher,
         .RxSwift,
+        .Firebase
     ],
     product: .app,
     deploymentTarget: .iOS(targetVersion: "13.5", devices: [.iphone, .ipad]),
@@ -24,6 +25,8 @@ let project = Project.excutable(
         .SPM.Alamofire,
         .SPM.Kingfisher,
         .SPM.RxSwift,
-        .SPM.RxCococa
+        .SPM.RxCococa,
+        .SPM.FirebaseAuth,
+        .SPM.FirebaseAnalytics
     ]
 )
