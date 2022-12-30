@@ -15,6 +15,8 @@ public extension TargetDependency.SPM{
     static let FirebaseAuth = TargetDependency.package(product: "FirebaseAuth")
     static let FirebaseAnalytics = TargetDependency.package(product: "FirebaseAnalytics")
     static let firebaseCrashlytics = TargetDependency.package(product: "FirebaseCrashlytics")
+    static let FirebaseFirestore = TargetDependency.package(product: "FirebaseFirestore")
+    static let FirebaseStorage = TargetDependency.package(product: "FirebaseStorage")
 }
 
 public extension Package {

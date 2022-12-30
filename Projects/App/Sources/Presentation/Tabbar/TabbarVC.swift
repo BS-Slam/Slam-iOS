@@ -10,7 +10,7 @@ final class TabBarVC: TabmanViewController{
     
     private let feedVC = FeedVC(.init(coordinator: .init(navigationController: .init(), window: .init())))
     private let homeVC = HomeVC(.init(coordinator: .init(navigationController: .init(), window: .init())))
-    private let homeVC3 = HomeVC(.init(coordinator: .init(navigationController: .init(), window: .init())))
+    private let chatVC = ChatVC(.init(coordinator: .init(navigationController: .init(), window: .init())))
     
     
     private let tempView = UIView()
@@ -28,7 +28,7 @@ final class TabBarVC: TabmanViewController{
         
         viewControllers.append(feedVC)
         viewControllers.append(homeVC)
-        viewControllers.append(homeVC3)
+        viewControllers.append(chatVC)
 
         let bar = TMBar.TabBar().then{
             $0.backgroundView.style = .blur(style: .dark)

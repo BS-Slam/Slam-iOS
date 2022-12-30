@@ -4,6 +4,7 @@ import Then
 import SnapKit
 import RxSwift
 import RxCocoa
+import FirebaseAuth
 
 final class SignInVC: BaseVC<SignInVM>{
 
@@ -38,6 +39,8 @@ final class SignInVC: BaseVC<SignInVM>{
         $0.setTitle("로그인", for: .normal)
         $0.setTitleColor(UIColor.black, for: .normal)
         $0.titleLabel?.font = UIFont(name: "Helvetica-Bold", size: 20)
+        $0.isEnabled = false
+        $0.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
     }
     
     private let signUpLabel = UILabel().then{
@@ -63,6 +66,7 @@ final class SignInVC: BaseVC<SignInVM>{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        idTextField.becomeFirstResponder()
         bindViewModel()
     }
     
@@ -114,5 +118,23 @@ final class SignInVC: BaseVC<SignInVM>{
             make.width.equalTo(50)
             make.height.equalTo(15)
         }
+    }
+    @objc func didTapButton() {
+        guard let name = idTextField.text else { return }
+        UserDefaultManager.displayName = name
+        Auth.auth().signInAnonymously()
+    }
+}
+
+extension SignInVC: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let oldString = textField.text, let newRange = Range(range, in: oldString) else { return true }
+        let inputString = string.trimmingCharacters(in: .whitespacesAndNewlines)
+        let newString = oldString.replacingCharacters(in: newRange, with: inputString)
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        signInButton.isEnabled = !newString.isEmpty
+
+        return true
     }
 }

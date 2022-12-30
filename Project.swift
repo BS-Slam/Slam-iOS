@@ -28,6 +28,8 @@ let project = Project.excutable(
         .SPM.RxCococa,
         .SPM.FirebaseAuth,
         .SPM.FirebaseAnalytics,
-        .SPM.firebaseCrashlytics
+        .SPM.firebaseCrashlytics,
+        .SPM.FirebaseFirestore,
+        .SPM.FirebaseStorage
     ]
 )
