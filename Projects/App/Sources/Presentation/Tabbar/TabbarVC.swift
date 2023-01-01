@@ -10,7 +10,7 @@ final class TabBarVC: TabmanViewController{
     
     private let feedVC = FeedVC(.init(coordinator: .init(navigationController: .init(), window: .init())))
     private let homeVC = HomeVC(.init(coordinator: .init(navigationController: .init(), window: .init())))
-    private let chatVC = ChatVC(.init(coordinator: .init(navigationController: .init(), window: .init())))
+    private let chatVC = ChatVC()
     
     
     private let tempView = UIView()
