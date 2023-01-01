@@ -39,8 +39,7 @@ final class SignInVC: BaseVC<SignInVM>{
         $0.setTitle("로그인", for: .normal)
         $0.setTitleColor(UIColor.black, for: .normal)
         $0.titleLabel?.font = UIFont(name: "Helvetica-Bold", size: 20)
-        $0.isEnabled = false
-        $0.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
+        $0.addTarget(self, action: #selector(signinButtonDidTap), for: .touchUpInside)
     }
     
     private let signUpLabel = UILabel().then{
@@ -66,8 +65,6 @@ final class SignInVC: BaseVC<SignInVM>{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        idTextField.becomeFirstResponder()
-        bindViewModel()
     }
     
     override func addView() {
@@ -119,22 +116,17 @@ final class SignInVC: BaseVC<SignInVM>{
             make.height.equalTo(15)
         }
     }
-    @objc func didTapButton() {
-        guard let name = idTextField.text else { return }
-        UserDefaultManager.displayName = name
-        Auth.auth().signInAnonymously()
-    }
-}
-
-extension SignInVC: UITextFieldDelegate {
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard let oldString = textField.text, let newRange = Range(range, in: oldString) else { return true }
-        let inputString = string.trimmingCharacters(in: .whitespacesAndNewlines)
-        let newString = oldString.replacingCharacters(in: newRange, with: inputString)
-            .trimmingCharacters(in: .whitespacesAndNewlines)
-        
-        signInButton.isEnabled = !newString.isEmpty
-
-        return true
+    @objc func signinButtonDidTap(){
+        FirebaseAuth.Auth.auth().signIn(withEmail: idTextField.text ?? "", password: pwdTextField.text ?? "") { [weak self] result, error in
+            guard
+                let self = self,
+                let result = result,
+                error == nil else {
+                print("no")
+                
+                return
+            }
+        }
+        bindViewModel()
     }
 }
