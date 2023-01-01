@@ -5,10 +5,13 @@ import SnapKit
 import RxSwift
 import RxCocoa
 import FirebaseAuth
+import JGProgressHUD
 
 final class SignInVC: BaseVC<SignInVM>{
 
     private let logoImageView = UIImageView(image: UIImage(named: "Slam_NavLogo"))
+    
+    private lazy var spinner = JGProgressHUD(style: .dark)
     
     private let loginLabel = UILabel().then{
         $0.text = "로그인"
@@ -117,15 +120,53 @@ final class SignInVC: BaseVC<SignInVM>{
         }
     }
     @objc func signinButtonDidTap(){
+        
+        guard
+            let email = idTextField.text, !email.isEmpty else {
+            
+            let alert = UIAlertController(title: "오류", message: "이메일을 입력해주세요.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "확인", style: .default) { action in })
+            self.present(alert, animated: true, completion: nil)
+            
+            return
+        }
+        guard
+            let password = pwdTextField.text, !password.isEmpty else {
+            
+            let alert = UIAlertController(title: "오류", message: "비밀번호를 입력해주세요", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "확인", style: .default) { action in
+            })
+            self.present(alert, animated: true, completion: nil)
+            
+            return
+        }
+        guard password.count >= 6 else {
+
+            let alert = UIAlertController(title: "오류", message: "비밀번호는 최소 6자 이상이 되어야 합니다.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "확인", style: .default) { action in
+            })
+            self.present(alert, animated: true, completion: nil)
+            
+            return
+        }
+        
+        spinner.show(in: view)
+        
         FirebaseAuth.Auth.auth().signIn(withEmail: idTextField.text ?? "", password: pwdTextField.text ?? "") { [weak self] result, error in
+            DispatchQueue.main.async {
+                self?.spinner.dismiss()
+            }
             guard
-                let self = self,
                 let result = result,
                 error == nil else {
                 print("no")
-                
+                let alert = UIAlertController(title: "오류", message: "아이디와 비밀번호를 다시 입력해 주세요.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "확인", style: .default) { action in
+                })
+                self?.present(alert, animated: true, completion: nil)
                 return
             }
+            self?.navigationController?.dismiss(animated: true)
         }
         bindViewModel()
     }

@@ -14,7 +14,9 @@ let project = Project.excutable(
         .Alamofire,
         .Kingfisher,
         .RxSwift,
-        .Firebase
+        .Firebase,
+        .MessageKit,
+        .JGProgressHUD
     ],
     product: .app,
     deploymentTarget: .iOS(targetVersion: "13.5", devices: [.iphone, .ipad]),
@@ -30,6 +32,9 @@ let project = Project.excutable(
         .SPM.FirebaseAnalytics,
         .SPM.firebaseCrashlytics,
         .SPM.FirebaseFirestore,
-        .SPM.FirebaseStorage
+        .SPM.FirebaseStorage,
+        .SPM.FirebaseDatabase,
+        .SPM.MessageKit,
+        .SPM.JGProgressHUD
     ]
 )

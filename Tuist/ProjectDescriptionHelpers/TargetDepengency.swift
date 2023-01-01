@@ -17,6 +17,9 @@ public extension TargetDependency.SPM{
     static let firebaseCrashlytics = TargetDependency.package(product: "FirebaseCrashlytics")
     static let FirebaseFirestore = TargetDependency.package(product: "FirebaseFirestore")
     static let FirebaseStorage = TargetDependency.package(product: "FirebaseStorage")
+    static let FirebaseDatabase = TargetDependency.package(product: "FirebaseDatabase")
+    static let MessageKit = TargetDependency.package(product: "MessageKit")
+    static let JGProgressHUD = TargetDependency.package(product: "JGProgressHUD")
 }
 
 public extension Package {
@@ -44,4 +47,10 @@ public extension Package {
     static let Firebase = Package.remote(
         url: "https://github.com/firebase/firebase-ios-sdk.git",
         requirement: .upToNextMajor(from: "8.0.0"))
+    static let MessageKit = Package.remote(
+        url: "https://github.com/MessageKit/MessageKit",
+        requirement: .upToNextMajor(from: "3.8.0"))
+    static let JGProgressHUD = Package.remote(
+        url: "https://github.com/JonasGessner/JGProgressHUD",
+        requirement: .upToNextMajor(from: "2.2.0"))
 }
