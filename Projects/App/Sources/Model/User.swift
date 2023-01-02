@@ -1,6 +1,6 @@
 import Foundation
 
-struct User: Codable{
+/*struct User: Codable{
     let id: String
     let name: String
     let nickName: String
@@ -17,3 +17,4 @@ extension User {
                             feedCount: .random(in: 1...100),
                             isFollow: .random())
 }
+*/

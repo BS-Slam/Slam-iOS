@@ -16,7 +16,8 @@ let project = Project.excutable(
         .RxSwift,
         .Firebase,
         .MessageKit,
-        .JGProgressHUD
+        .JGProgressHUD,
+        .Scaledrone
     ],
     product: .app,
     deploymentTarget: .iOS(targetVersion: "13.5", devices: [.iphone, .ipad]),
@@ -35,6 +36,7 @@ let project = Project.excutable(
         .SPM.FirebaseStorage,
         .SPM.FirebaseDatabase,
         .SPM.MessageKit,
-        .SPM.JGProgressHUD
+        .SPM.JGProgressHUD,
+        .SPM.Scaledrone
     ]
 )

@@ -20,6 +20,7 @@ public extension TargetDependency.SPM{
     static let FirebaseDatabase = TargetDependency.package(product: "FirebaseDatabase")
     static let MessageKit = TargetDependency.package(product: "MessageKit")
     static let JGProgressHUD = TargetDependency.package(product: "JGProgressHUD")
+    static let Scaledrone = TargetDependency.package(product: "Scaledrone")
 }
 
 public extension Package {
@@ -53,4 +54,7 @@ public extension Package {
     static let JGProgressHUD = Package.remote(
         url: "https://github.com/JonasGessner/JGProgressHUD",
         requirement: .upToNextMajor(from: "2.2.0"))
+    static let Scaledrone = Package.remote(
+        url: "https://github.com/ScaleDrone/Scaledrone-Swift",
+        requirement: .upToNextMajor(from: "0.5.2"))
 }

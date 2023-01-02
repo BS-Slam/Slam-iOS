@@ -163,12 +163,30 @@
       }
     },
     {
+      "identity" : "scaledrone-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ScaleDrone/Scaledrone-Swift",
+      "state" : {
+        "revision" : "99dd56b1c3221d0cdd4f8610517932ba088d5c7d",
+        "version" : "0.5.3"
+      }
+    },
+    {
       "identity" : "snapkit",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SnapKit/SnapKit.git",
       "state" : {
         "revision" : "f222cbdf325885926566172f6f5f06af95473158",
         "version" : "5.6.0"
+      }
+    },
+    {
+      "identity" : "starscream",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/daltoniam/Starscream.git",
+      "state" : {
+        "revision" : "a063fda2b8145a231953c20e7a646be254365396",
+        "version" : "3.1.2"
       }
     },
     {
