@@ -5,7 +5,13 @@ import Then
 import SnapKit
 
 
-final class FeedTableViewCell: BaseTableViewCell{
+protocol CollectionViewCellDelegate: AnyObject{
+    func collectionView(collectionviewcell: FeedCell?, index: Int, didTappedInTableViewCell: FeedTableViewCell)
+}
+
+final class FeedTableViewCell: BaseTableViewCell, CollectionViewCellDelegate{
+    
+    private var cellDelegate: CollectionViewCellDelegate!
     
     private var collectionView: UICollectionView!
     private var layout = UICollectionViewFlowLayout().then{
@@ -86,7 +92,6 @@ final class FeedTableViewCell: BaseTableViewCell{
     }
     
     override func addView(){
-        //self.bringSubviewToFront(heartButton)
         [heartButton,likedLabel,talkButton,shareButton,profileButton,pageControl,profileIdLabel,withoutLabel].forEach {
             self.addSubview($0)
         }
@@ -167,7 +172,7 @@ extension FeedTableViewCell : UICollectionViewDataSource,UICollectionViewDelegat
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt  section: Int) -> UIEdgeInsets {
         
-        return UIEdgeInsets.init(top: 0, left: 0, bottom: 110, right: 0)
+        return UIEdgeInsets.init(top: 0, left: 0, bottom: 145, right: 0)
         
     }
 }
@@ -181,5 +186,27 @@ extension FeedTableViewCell: UIScrollViewDelegate {
         if pageControl.currentPage != newPage {
             pageControl.currentPage = newPage
         }
+    }
+}
+
+extension FeedTableViewCell{
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as? FeedCell
+        self.cellDelegate?.collectionView(collectionviewcell: cell, index: indexPath.item, didTappedInTableViewCell: self)
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? FeedTableViewCell {
+                // ...
+                
+                // 여기에 써주면 됨
+                cell.cellDelegate = self
+                
+                // ...
+                return cell
+            }
+            return UITableViewCell()
+        }
+    func collectionView(collectionviewcell: FeedCell?, index: Int, didTappedInTableViewCell: FeedTableViewCell) {
+        print("어쩌구")
     }
 }

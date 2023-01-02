@@ -7,8 +7,9 @@ import RxCocoa
 import Tabman
 import InputBarAccessoryView
 import MessageKit
+import AVFoundation
 
-final class ChatVC: MessagesViewController{
+final class ChatVC: MessagesViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate{
     
     var messageList: [MockMessage] = [] {
         didSet {
@@ -22,7 +23,24 @@ final class ChatVC: MessagesViewController{
         $0.locale = Locale(identifier: "ko_kr")
     }
     
+    private let challengeView = UIView().then{
+        $0.backgroundColor = UIColor(red: 0.145, green: 0.145, blue: 0.145, alpha: 1)
+        $0.layer.cornerRadius = 18
+    }
     
+    private let challengeLabel = UILabel().then{
+        $0.text = "가장 웃긴 사진을 찍으세요."
+        $0.font = UIFont(name: "Helvetica", size: 15)
+        $0.textColor = .white
+    }
+    
+    private let cameraButton = UIButton().then{
+        $0.setTitle("11시 공개", for: .normal)
+        $0.setTitleColor(UIColor.darkGray, for: .normal)
+        $0.titleLabel?.font = UIFont(name: "Helvetica", size: 13)
+        $0.addTarget(self, action: #selector(cameraButtonDidTap),for: .touchUpInside)
+        $0.isEnabled = false
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +48,6 @@ final class ChatVC: MessagesViewController{
         DispatchQueue.main.async {
             self.messageList = MockMessage.getMessages()
         }
-
 
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
@@ -43,6 +60,9 @@ final class ChatVC: MessagesViewController{
         messagesCollectionView.backgroundColor = SlamAsset.Colors.slamBackgroundColor.color
         scrollsToLastItemOnKeyboardBeginsEditing = true
         maintainPositionOnKeyboardFrameChanged = true
+        addView()
+        setLayout()
+        isSameDay()
     }
 
     override func didReceiveMemoryWarning() {
@@ -57,6 +77,58 @@ final class ChatVC: MessagesViewController{
     private func setupButton(){
         messageInputBar.sendButton.title = "보내기"
         messageInputBar.sendButton.tintColor = SlamAsset.Colors.slamMainColor.color
+    }
+    
+    private func addView(){
+        view.addSubview(challengeView)
+        challengeView.addSubview(challengeLabel)
+        challengeView.addSubview(cameraButton)
+    }
+    
+    private func setLayout(){
+        challengeView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalToSuperview().offset(80)
+            make.width.equalToSuperview().inset(20)
+            make.height.equalTo(80)
+        }
+        challengeLabel.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.left.equalTo(24)
+            make.width.equalTo(200)
+            make.height.equalTo(18)
+        }
+        cameraButton.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.right.equalTo(challengeLabel.snp.right).offset(115)
+            make.width.equalTo(60)
+            make.height.equalTo(16)
+        }
+    }
+    
+    private func isSameDay(){
+        let formatter = DateFormatter()
+        formatter.dateFormat = "h:mm a"
+        let firstDate = formatter.date(from: "11:00 PM")
+        
+        let secondDate = Date()
+        print(secondDate)
+        
+        if firstDate?.compare(secondDate) == .orderedSame {
+            print("Both dates are same")
+        }else {
+            print("no they are not")
+        }
+    }
+    
+    @objc func cameraButtonDidTap(){
+        let camera = UIImagePickerController()
+        camera.sourceType = .camera
+        camera.allowsEditing = true
+        camera.cameraDevice = .rear
+        camera.cameraCaptureMode = .photo
+        camera.delegate = self
+        present(camera, animated: true, completion: nil)
     }
 }
 

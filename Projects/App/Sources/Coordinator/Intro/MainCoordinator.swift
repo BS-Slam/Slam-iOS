@@ -15,6 +15,7 @@ class MainCoordinator: Coordinator{
     func start() {
         let introVM = IntroVM(coordinator: self)
         let introVC = IntroVC(introVM)
+        //let introVC = ChatVC()
         navigationController.setViewControllers([introVC], animated: true)
     }
     
