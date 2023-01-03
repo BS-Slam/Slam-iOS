@@ -35,13 +35,19 @@ final class ChatVC: MessagesViewController, UIImagePickerControllerDelegate & UI
     }
     
     private let cameraButton = UIButton().then{
-        $0.setTitle("11시 공개", for: .normal)
+        $0.setTitle("촬영", for: .normal)
         $0.setTitleColor(UIColor.darkGray, for: .normal)
         $0.titleLabel?.font = UIFont(name: "Helvetica", size: 13)
         $0.addTarget(self, action: #selector(cameraButtonDidTap),for: .touchUpInside)
-        $0.isEnabled = false
+        //$0.isEnabled = false
     }
-
+    
+    private let megaPhoneButton = UIBarButtonItem(image: UIImage(systemName: "megaphone"), style: .plain, target: self, action: "didtap")
+    
+    private let showchallengeButton = UIBarButtonItem(image: UIImage(systemName: "list.bullet.clipboard.fill"), style: .plain, target: self, action: "didtap")
+    
+    private let lineButton = UIBarButtonItem(image: UIImage(systemName: "line.3.horizontal"), style: .plain, target: self, action: "didtap")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -62,7 +68,15 @@ final class ChatVC: MessagesViewController, UIImagePickerControllerDelegate & UI
         maintainPositionOnKeyboardFrameChanged = true
         addView()
         setLayout()
-        isSameDay()
+        
+        var backbutton = UIButton(type: .custom)
+        backbutton.setImage(UIImage(named: "BackButton.png"), for: .normal)
+        backbutton.setTitle("Back", for: .normal)
+        backbutton.setTitleColor(backbutton.tintColor, for: .normal)
+        //backbutton.addTarget(self, action: "backAction", for: .touchUpInside)
+
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backbutton)
+        self.navigationItem.rightBarButtonItems = [megaPhoneButton,showchallengeButton,lineButton]
     }
 
     override func didReceiveMemoryWarning() {
@@ -88,7 +102,7 @@ final class ChatVC: MessagesViewController, UIImagePickerControllerDelegate & UI
     private func setLayout(){
         challengeView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalToSuperview().offset(80)
+            make.top.equalToSuperview().offset(125)
             make.width.equalToSuperview().inset(20)
             make.height.equalTo(80)
         }
@@ -103,21 +117,6 @@ final class ChatVC: MessagesViewController, UIImagePickerControllerDelegate & UI
             make.right.equalTo(challengeLabel.snp.right).offset(115)
             make.width.equalTo(60)
             make.height.equalTo(16)
-        }
-    }
-    
-    private func isSameDay(){
-        let formatter = DateFormatter()
-        formatter.dateFormat = "h:mm a"
-        let firstDate = formatter.date(from: "11:00 PM")
-        
-        let secondDate = Date()
-        print(secondDate)
-        
-        if firstDate?.compare(secondDate) == .orderedSame {
-            print("Both dates are same")
-        }else {
-            print("no they are not")
         }
     }
     

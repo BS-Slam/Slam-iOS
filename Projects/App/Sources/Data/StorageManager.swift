@@ -1,39 +1,36 @@
 
 import Foundation
 import FirebaseStorage
+import UIKit
 
 final class StorageManager{
     
-    static let shared = StorageManager()
-    
-    private let storage = Storage.storage().reference()
-    
-    typealias UploadPictureCompletionHandler = (Result<String, Error>) -> Void
+    static func uploadImage(image: UIImage, pathRoot: String, completion: @escaping (URL?) -> Void) {
+        guard let imageData = image.jpegData(compressionQuality: 0.4) else { return }
+        let metaData = StorageMetadata()
+        metaData.contentType = "image/jpeg"
         
-    func uploadProfilePicture(with data: Data, fileName: String, completionHandler: @escaping UploadPictureCompletionHandler) {
-        storage.child("images/\(fileName)").putData(data, metadata: nil) { metadata, error in
-            guard
-                let metadata = metadata,
-                error == nil else {
-                    completionHandler(.failure(StorageErrors.failedToUpload))
-                    return
-            }
-            let reference = self.storage.child("images/\(fileName)").downloadURL { url, error in
-                guard
-                    let url = url,
-                    error == nil else {
-                    completionHandler(.failure(StorageErrors.failedtToGetDownloadUrl))
-                    return
-                }
-                let urlString = url.absoluteString
-                print("downloaded urlString: " + urlString)
-                completionHandler(.success(urlString))
+        let imageName = UUID().uuidString + String(Date().timeIntervalSince1970)
+        
+        let firebaseReference = Storage.storage().reference().child("\(imageName)")
+        firebaseReference.putData(imageData, metadata: metaData) { metaData, error in
+            firebaseReference.downloadURL { url, _ in
+                completion(url)
             }
         }
     }
-    enum StorageErrors: LocalizedError {
-        case failedToUpload
-        case failedtToGetDownloadUrl
+    
+    static func downloadImage(urlString: String, completion: @escaping (UIImage?) -> Void) {
+        let storageReference = Storage.storage().reference(forURL: urlString)
+        let megaByte = Int64(1 * 1024 * 1024)
+        
+        storageReference.getData(maxSize: megaByte) { data, error in
+            guard let imageData = data else {
+                completion(nil)
+                return
+            }
+            completion(UIImage(data: imageData))
+        }
     }
 }
     
